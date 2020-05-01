@@ -1,0 +1,203 @@
+ModulePath /usr/X11R6/lib/X11/fvwm
+
+###########################
+# General configurations. #
+###########################
+EdgeResistance   250 10
+EdgeScroll       0 0
+ClickTime        750
+
+DeskTopSize      3x3
+ColormapFocus    FollowsMouse
+
+####################################
+# Window style and configurations. #
+####################################
+HilightColor     #ffffff #1e1e1e
+MenuStyle        #ffffff #1e1e1e #4dff4d fixed fvwm
+
+Style "*"        BorderWidth 5, HandleWidth 5
+Style "*"        Color #ffffff/#2e2e2e
+Style "*"        FocusFollowsMouse
+Style "*"        RandomPlacement, SmartPlacement
+
+Style "Fvwm*"    NoTitle, Sticky, WindowListSkip
+
+:q
+:q
+#############################
+# Initialization functions. #
+#############################
+AddToFunc        InitFunction        "I"   Module   FvwmPager 0 0
++                "I" exec feh --bg-fill ~/.config/images/wallpaper.png
+AddToFunc        RestartFunction     "I"   Module   FvwmPager 0 0
++                "I" exec feh --bg-fill ~/.config/images/wallpaper.png
+
+##########
+# Pager. #
+##########
+*FvwmPagerFont        -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
+*FvwmPagerBack        black
+*FvwmPagerFore        white
+*FvwmPagerHilight     #2d2d2d
+*FvwmPagerGeometry    100x100-1-1
+*FvwmPagerLabel 0     "OpenBSD 6.6"
+*FvwmPagerSmallFont   5x8
+
+##########
+# Menus. #
+##########
+AddToMenu RootMenu	"OpenBSD"         Title
++                   "XTerm"           exec xterm
++                   "Wireshark"       exec wireshark
++                   ""                Nop
++                   "Firefox"         exec firefox
++                   "File manager"    exec xterm -e "nnn"
++                   "Gimp"            exec gimp
++                   "VLC"             exec vlc
++                   "Transmission"    exec transmission-gtk
++                   "Volume"          Popup VolumeMenu
++                   ""                Nop
++                   "Restart FVWM"    Restart fvwm
++                   "Lock screen"     exec ~/.config/lock.sh
++                   "Logout"          FvwmForm QuitVerify
++                   "Reboot"          FvwmForm RebootVerify
++                   "Shutdown"        FvwmForm ShutdownVerify
+
+# Window operations for the centre mouse button.
+AddToMenu Global-Window-Ops    "Window Ops"       Title
++                              "Move"             Move-or-Raise2
++	                             "Resize"           Resize-or-Raise2
++                              "Raise"            Raise
++                              "Lower"            Lower
++                              "(De)Iconify"      Iconify
++                              "(Un)Stick"        Stick
++                              "(Un)Maximize"     maximize_func
++                              ""                 Nop
++                              "Delete"           Delete
++                              "Close"            Close
++                              "Destroy"          Destroy
++                              ""                 Nop
++                              "Refresh Screen"   Refresh
+
+# Window operations for the top left of every window.
+AddToMenu Window-Ops   "Move"           Move-or-Raise
++                      "Resize"         Resize-or-Raise
++                      "Raise/Lower"    RaiseLower
++                      "Iconify"        Iconify
++                      "(Un)Stick"      Stick
++                      ""               Nop
++                      "Delete"         Delete
++                      "Close"          Close
++                      "Destroy"        Destroy
+
+# Volume menu.
+AddToMenu VolumeMenu  "Volume Control"  Title
++                     "Volume 100%%"    exec mixerctl -q outputs.master=255
++                     "Volume  90%%"    exec mixerctl -q outputs.master=230
++                     "Volume  80%%"    exec mixerctl -q outputs.master=205
++                     "Volume  70%%"    exec mixerctl -q outputs.master=180
++                     "Volume  60%%"    exec mixerctl -q outputs.master=155
++                     "Volume  50%%"    exec mixerctl -q outputs.master=130
++                     "Volume  40%%"    exec mixerctl -q outputs.master=105
++                     "Volume  30%%"    exec mixerctl -q outputs.master=80
++                     "Volume  20%%"    exec mixerctl -q outputs.master=55
++                     "Volume  10%%"    exec mixerctl -q outputs.master=20
++                     "Volume   0%%"    exec mixerctl -q outputs.master=0
+
+#########################
+# Mouse configurations. #
+#########################
+#        Button	Context Modifi 	Function
+Mouse    1      R       A       Menu RootMenu Nop
+Mouse    2      R       A       Menu Global-Window-Ops Nop
+Mouse    3      R       A       WindowList
+
+# Title bar options (minimise, maximise, close).
+#        Button	Context Modifi 	Function
+Mouse    0      1       A       Menu Window-Ops Close
+Mouse    0      2       A       Close
+Mouse    0      4       A       Maximize-Func
+Mouse    0      6       A       Iconify
+
+# Button 1 configurations for frame/sides, icons, and on top.
+#        Button	Context Modifi 	Function
+Mouse    1      FS      A       Resize-or-Raise
+Mouse    1      I       A       Move-or-Iconify
+Mouse    1      T       A       Move-or-Raise
+
+# Button 2 configuration.
+Mouse 2  FST    A       Menu    Window-Ops Nop
+
+##############
+# Functions. #
+##############
+AddToFunc Move-or-Raise         "I" Raise
++                               "M" Move
++                               "D" Maximize
+
+AddToFunc Move-or-Raise2        "M" Raise
++                               "M" Move
++                               "D" Lower
+
+AddToFunc Maximize-Func         "C" Maximize    100 100
+
+AddToFunc Move-or-Iconify       "I" Raise
++                               "M" Move
++                               "D" Iconify
+
+AddToFunc Resize-or-Raise       "I" Raise
++                               "M" Resize
++                               "D" Lower
+
+AddToFunc Resize-or-Raise2      "M" Raise
++                               "M" Resize
++                               "D" Lower
+
+AddToFunc Iconify-and-Raise     "I" Iconify
++                               "I" Raise
+
+#######################
+# Keyboard shortcuts. #
+#######################
+
+# to do...
+
+########################################################
+# Confirmation pages for logout, reboot, and shutdown. #
+########################################################
+*QuitVerifyGrabServer
+*QuitVerifyWarpPointer
+*QuitVerifyCommand            Beep
+*QuitVerifyLine               center
+*QuitVerifyText               "Do you really want to logout?"
+*QuitVerifyLine               expand
+*QuitVerifyButton             quit        "Logout"  ^M
+*QuitVerifyCommand            Quit
+*QuitVerifyButton             quit        "Cancel"  ^[
+*QuitVerifyCommand            Nop
+Style "QuitVerify"            NoTitle, NoHandles, BorderWidth 3
+
+*RebootVerifyGrabServer
+*RebootVerifyWarpPointer
+*RebootVerifyCommand          Beep
+*RebootVerifyLine             center
+*RebootVerifyText             "Do you really want to reboot?"
+*RebootVerifyLine             expand
+*RebootVerifyButton           quit        "Reboot"  ^M
+*RebootVerifyCommand          exec /usr/bin/doas /sbin/reboot
+*RebootVerifyButton           quit        "Cancel"  ^[
+*RebootVerifyCommand          Nop
+Style "RebootVerify"          NoTitle, NoHandles, BorderWidth 3
+
+*ShutdownVerifyGrabServer
+*ShutdownVerifyWarpPointer
+*ShutdownVerifyCommand        Beep
+*ShutdownVerifyLine           center
+*ShutdownVerifyText           "Do you really want to shutdown?"
+*ShutdownVerifyLine           expand
+*ShutdownVerifyButton         quit        "Shutdown"  ^M
+*ShutdownVerifyCommand        exec /usr/bin/doas /sbin/shutdown -hp now
+*ShutdownVerifyButton         quit        "Cancel"  ^[
+*ShutdownVerifyCommand        Nop
+Style "ShutdownVerify"        NoTitle, NoHandles, BorderWidth 3

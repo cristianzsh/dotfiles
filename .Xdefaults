@@ -1,0 +1,55 @@
+XTerm*locale: utf8
+xterm*utf8: true
+xterm*faceName: xft:Mono:pixelsize=12
+xterm*title: xterm
+xterm*boldMode: false
+xterm*cutNewline: false
+xterm*on4Clicks: group
+xterm*on5Clicks: page
+xterm*internalBorder: 2
+xterm*background: black
+xterm*foreground: white
+xterm*customization: color
+xterm*metaSendsEscape: true
+xterm*cursorBlink: true
+xterm*cursorColor: white
+xterm*dynamiccolors: true
+xterm*loginShell: true
+xterm*jumpScroll: true
+xterm*multiScroll: true
+xterm*saveLines: 3000
+xterm*scrollBar: false
+xterm*xftAntialias: true
+XTerm*VT100*scrollTtyOutput: false
+xterm.vt100.geometry: 90x25
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: full
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
+
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
+
+XTerm*VT100.Translations: #override \
+    Shift<Key>Insert: insert-selection(CLIPBOARD) \n\
+    <Key>Insert: insert-selection(PRIMARY) \n\
+    Shift<Btn2Up>: insert-selection(CLIPBOARD) \n\
+    Shift<Key>Up: scroll-back(1) \n\
+    Shift<Key>Down: scroll-forw(1)
