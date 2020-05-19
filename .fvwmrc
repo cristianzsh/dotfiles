@@ -41,7 +41,7 @@ AddToFunc        RestartFunction     "I"   Module   FvwmPager 0 0
 *FvwmPagerFore        white
 *FvwmPagerHilight     #2d2d2d
 *FvwmPagerGeometry    100x100-1-1
-*FvwmPagerLabel 0     "OpenBSD 6.6"
+*FvwmPagerLabel 0     "OpenBSD 6.7"
 *FvwmPagerSmallFont   5x8
 
 ##########
