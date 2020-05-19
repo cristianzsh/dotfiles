@@ -7,8 +7,11 @@ echo -n "Move dotfiles to which user? "
 read user
 
 if [[ $install == y ]]; then
-    pkg_add feh conky i3lock nnn scrot rofi wireshark firefox gimp vlc transmission-gtk ImageMagick git vim cmus slim slim-themes
+    pkg_add wireshark firefox gimp vlc transmission-gtk git vim nnn cmus
 fi
+
+echo "[*] Installing necessary software..."
+pkg_add feh conky i3lock scrot rofi ImageMagick slim slim-themes
 
 echo "[*] Copying dotfiles..."
 cp .fvwmrc /home/$user/.fvwmrc
