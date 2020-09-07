@@ -4,14 +4,13 @@ My OpenBSD dotfiles.
 
 ## How to install
 
-1. Create a new user (```adduser```).
+1. If the user account doesn't exist, create it (`adduser(8)`) and configure `doas(1)`.
 2. Run the following commands:
 ```
-# pkg_add unzip wget
-# wget https://github.com/crhenr/dotfiles/archive/master.zip -O dotfiles.zip
-# unzip dotfiles.zip && cd dotfiles-master
-# chmod +x install.sh
-# ./install.sh
+$ tmpdir=$(mktemp -d)
+$ ftp -Vo - https://codeload.github.com/crhenr/dotfiles/tar.gz/master | tar zxf - -C $tmpdir
+$ doas /$tmpdir/dotfiles-master/install.sh
+$ rm -fr $tmpdir
 ```
 
 ## Result
